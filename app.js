@@ -25,7 +25,7 @@ app.get('/', (req,res) => {
 })
 
 app.get('/movies/:movie_id', (req, res) => {
-    console.log('movie id: ', req.params.id)
+    console.log('movie id: ', req.params.movie_id)
     const movieOne = {
         title: 'Jurassic World: Fallen Kingdom',
         image: 'c9XxwwhPHdaImA2f1WEfEsbhaFB.jpg',
