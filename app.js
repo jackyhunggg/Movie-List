@@ -23,16 +23,18 @@ app.set('view engine', 'handlebars');
 app.get('/', (req,res) => {
     res.render('index', { movies: movieList.results });
 })
-
+// 用movie_id這個變數來當作電影路由
 app.get('/movies/:movie_id', (req, res) => {
-    console.log('movie id: ', req.params.movie_id)
-    const movieOne = {
-        title: 'Jurassic World: Fallen Kingdom',
-        image: 'c9XxwwhPHdaImA2f1WEfEsbhaFB.jpg',
-        release_date: '2018-06-06',
-        description: 'Several years after the demise of Jurassic World, a volcanic eruption threatens the remaining dinosaurs on the island of Isla Nublar. Claire Dearing, the former park manager and founder of the Dinosaur Protection Group, recruits Owen Grady to help prevent the extinction of the dinosaurs once again.',
-    }
-    res.render('show', {movie: movieOne})
+// locate the movie id first
+    console.log('movie id: ', typeof(req.params.movie_id));
+// movies.json(app.js/: 8)'s movie's id, and turn it into string, check if it matches the parameter(movie_id)
+// 使用 filter() 的時候一般是因為我們需要尋找多個元素，因為 filter() 會回傳一個陣列
+// 但因為 movie.id 是不重複的，所以我們每次只會找到唯一有相同 movid.id 的電影
+// 這個時候，使用 find 會更適合，我們也可以直接回傳 movie 而不是 movie[0]，讓程式碼變得更簡潔
+// because find method will return the first element that passes the test
+    const movie = movieList.results.find(movie => movie.id.toString() === req.params.movie_id);
+// the first movie is just a name for this function, the other movie is the movie we const above
+    res.render('show', {movie: movie})
 })
 
 app.listen(port, () => {
