@@ -37,6 +37,19 @@ app.get('/movies/:movie_id', (req, res) => {
     res.render('show', {movie: movie})
 })
 
+app.get('/search', (req, res) => {
+    // 使用者在瀏覽器所輸入的搜尋內容，會在終端機顯示出來，並且被放在 req.query.keyword 當中
+    const keyword = req.query.keyword;
+    // 從movieList的每個電影標題篩選關鍵字
+    // 若要篩選陣列，就是透過 filter 這個方法
+    // 如果要查詢某一字串中是否包含特定字串，則可以使用 includes 這個方法
+    // filter function 不會區分大小寫，但是includes會，所以加上toLowerCase來統一結果
+    const movies = movieList.results.filter(movie => {
+        return movie.title.toLowerCase().includes(keyword.toLowerCase())
+    })
+    res.render('index', {movies: movies, keyword: keyword})
+})
+
 app.listen(port, () => {
     console.log(`the server is listen on http://localhost:${port}`)
 })
