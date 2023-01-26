@@ -3,9 +3,10 @@
   <!-- search bar -->
   <div class="row" id="search-bar">
     <div class="col-12">
-      <form action="/">
+      {{!-- 把 action 改成 action="/search" 讓這個表單往路由 /search 的位置發送 --}}
+      <form action="/search">
         <div class="input-group mb-3">
-          <input type="text" name="q" class="form-control" placeholder="Enter movie name to search..." aria-label="Movie Name..."
+          <input type="text" name="keyword" class="form-control" placeholder="Enter movie name to search..." aria-label="Movie Name..."
             aria-describedby="search-button">
           <div class="input-group-append">
             <button class="btn btn-outline-secondary" type="submit" id="search-button">Search</button>
